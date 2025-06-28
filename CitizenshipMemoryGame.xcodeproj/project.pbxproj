@@ -35,16 +35,6 @@
 			path = CitizenshipMemoryGame;
 			sourceTree = "<group>";
 		};
-		FCE97E6F2E0F628C0070ED73 /* CitizenshipMemoryGameTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = CitizenshipMemoryGameTests;
-			sourceTree = "<group>";
-		};
-		FCE97E792E0F628C0070ED73 /* CitizenshipMemoryGameUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = CitizenshipMemoryGameUITests;
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,8 +66,6 @@
 			isa = PBXGroup;
 			children = (
 				FCE97E602E0F628B0070ED73 /* CitizenshipMemoryGame */,
-				FCE97E6F2E0F628C0070ED73 /* CitizenshipMemoryGameTests */,
-				FCE97E792E0F628C0070ED73 /* CitizenshipMemoryGameUITests */,
 				FCE97E5F2E0F628B0070ED73 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -130,9 +118,6 @@
 			dependencies = (
 				FCE97E6E2E0F628C0070ED73 /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				FCE97E6F2E0F628C0070ED73 /* CitizenshipMemoryGameTests */,
-			);
 			name = CitizenshipMemoryGameTests;
 			packageProductDependencies = (
 			);
@@ -152,9 +137,6 @@
 			);
 			dependencies = (
 				FCE97E782E0F628C0070ED73 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				FCE97E792E0F628C0070ED73 /* CitizenshipMemoryGameUITests */,
 			);
 			name = CitizenshipMemoryGameUITests;
 			packageProductDependencies = (
@@ -398,6 +380,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Canadian Citizenship Memory Game";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.educational-games";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -413,7 +397,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.arnaudober.citizenship.memory.game.CitizenshipMemoryGame;
+				PRODUCT_BUNDLE_IDENTIFIER = com.arnaudober.CitizenshipMemoryGame;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = auto;
@@ -438,6 +422,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Canadian Citizenship Memory Game";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.educational-games";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -453,7 +439,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.arnaudober.citizenship.memory.game.CitizenshipMemoryGame;
+				PRODUCT_BUNDLE_IDENTIFIER = com.arnaudober.CitizenshipMemoryGame;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = auto;
@@ -469,6 +455,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = RXUMNKF533;
@@ -476,13 +463,14 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
 				MACOSX_DEPLOYMENT_TARGET = 15.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.arnaudober.citizenship.memory.game.CitizenshipMemoryGameTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.arnaudober.memory.game.CitizenshipMemoryGameTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CitizenshipMemoryGame.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CitizenshipMemoryGame";
 				XROS_DEPLOYMENT_TARGET = 2.5;
 			};
@@ -492,6 +480,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = RXUMNKF533;
@@ -499,13 +488,14 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
 				MACOSX_DEPLOYMENT_TARGET = 15.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.arnaudober.citizenship.memory.game.CitizenshipMemoryGameTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.arnaudober.memory.game.CitizenshipMemoryGameTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CitizenshipMemoryGame.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CitizenshipMemoryGame";
 				XROS_DEPLOYMENT_TARGET = 2.5;
 			};
@@ -521,13 +511,14 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
 				MACOSX_DEPLOYMENT_TARGET = 15.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.arnaudober.citizenship.memory.game.CitizenshipMemoryGameUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.arnaudober.CitizenshipMemoryGameUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_TARGET_NAME = CitizenshipMemoryGame;
 				XROS_DEPLOYMENT_TARGET = 2.5;
 			};
@@ -543,13 +534,14 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
 				MACOSX_DEPLOYMENT_TARGET = 15.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.arnaudober.citizenship.memory.game.CitizenshipMemoryGameUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.arnaudober.CitizenshipMemoryGameUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_TARGET_NAME = CitizenshipMemoryGame;
 				XROS_DEPLOYMENT_TARGET = 2.5;
 			};
