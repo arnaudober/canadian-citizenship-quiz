@@ -13,19 +13,24 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
+            "outputPath": "docs",
+            "baseHref": "/citizenship-memory-game/",
             "browser": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
+              "src/favicon.ico",
+              "src/assets",
               {
                 "glob": "**/*",
                 "input": "public"
               }
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "@angular/material/prebuilt-themes/rose-red.css"
             ]
           },
           "configurations": {
@@ -82,11 +87,15 @@
               }
             ],
             "styles": [
+              "@angular/material/prebuilt-themes/rose-red.css",
               "src/styles.css"
             ]
           }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "73b84cdf-5c94-4108-942c-3562aaa9b940"
   }
 }
