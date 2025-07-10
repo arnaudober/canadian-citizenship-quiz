@@ -44,7 +44,7 @@
 
 .card {
   flex-grow: 1;
-  cursor: pointer;
+  cursor: pointer !important;
   transition: 0.3s ease;
   border-left: none !important;
 }

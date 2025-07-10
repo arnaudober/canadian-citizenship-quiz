@@ -15,19 +15,13 @@
     <mat-card class="card" [ngClass]="{ answer: showAnswer, question: !showAnswer }" (click)="revealAnswer()">
       <mat-card-content>
         <p class="card-text">
-          {{ showAnswer ? cards[index].answer : cards[index].question }}
+          {{ showAnswer ? cards()[index]?.answer : cards()[index]?.question }}
         </p>
       </mat-card-content>
     </mat-card>
   </div>
 
   <div class="action">
-    @if (showAnswer) {
-      <button [matButton]="index + 1 === cards.length ? 'filled' : 'outlined'" color="primary"
-              (click)="goToNext()">
-        {{ index + 1 === cards.length ? 'Finish' : 'Next' }}
-      </button>
-    }
-    <p>Card {{ index + 1 }} of {{ cards.length }}</p>
+    <p>Card {{ index + 1 }} of {{ cards().length }}</p>
   </div>
 </main>

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Signal} from '@angular/core';
 import {Flashcard} from './model';
 import {FlashcardService} from './service';
 import {CommonModule} from '@angular/common';
@@ -16,7 +16,8 @@ import {MatDividerModule} from '@angular/material/divider';
   imports: [CommonModule, MatToolbarModule, MatButtonModule, MatIconModule, MatCardModule, MatDividerModule]
 })
 export class AppComponent implements OnInit {
-  cards: Flashcard[] = [];
+  cards!: Signal<Flashcard[]>;
+
   index = 0;
   showAnswer = false;
 
@@ -36,11 +37,13 @@ export class AppComponent implements OnInit {
   revealAnswer(): void {
     if (!this.showAnswer) {
       this.showAnswer = true;
+    } else {
+      this.goToNext();
     }
   }
 
   goToNext(): void {
-    if (this.index + 1 < this.cards.length) {
+    if (this.index + 1 < this.cards().length) {
       this.index++;
       this.showAnswer = false;
     } else {

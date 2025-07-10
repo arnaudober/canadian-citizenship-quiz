@@ -1,34 +1,54 @@
-import { Injectable } from '@angular/core';
-import { Flashcard } from './model';
+import {Injectable, signal, Signal} from '@angular/core';
+import {Flashcard} from './model';
+import {HttpClient} from '@angular/common/http';
+import {catchError, finalize, of, tap} from 'rxjs';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class FlashcardService {
-    private allFlashcards: Flashcard[] = [
-        { question: 'What is the capital of Canada?', answer: 'Ottawa' },
-        { question: 'Who is the Head of State?', answer: 'The King' },
-        { question: 'Two responsibilities of a Canadian citizen?', answer: 'Obey the law and vote in elections' },
-        { question: 'How many provinces are there in Canada?', answer: '10 provinces' },
-        { question: 'What is the name of the national police force?', answer: 'Royal Canadian Mounted Police (RCMP)' },
-        { question: 'What are the official languages of Canada?', answer: 'English and French' },
-        { question: 'What does the Canadian flag look like?', answer: 'Red and white with a maple leaf' },
-        { question: 'What is the Constitution?', answer: 'The supreme law of Canada' },
-        { question: 'Who can vote in federal elections?', answer: 'Canadian citizens aged 18 or older' },
-        { question: 'What are the three parts of Parliament?', answer: 'The Monarch, the Senate, and the House of Commons' },
-        { question: 'What is the name of Canada\'s national anthem?', answer: 'O Canada' },
-        { question: 'When is Canada Day?', answer: 'July 1' },
-        { question: 'What do we remember on Remembrance Day?', answer: 'The sacrifices of veterans and fallen soldiers' },
-        { question: 'Who is Canada’s current Prime Minister?', answer: 'Justin Trudeau' },
-        { question: 'What are three responsibilities of the provinces?', answer: 'Education, health care, transportation' },
-        { question: 'What is multiculturalism?', answer: 'The recognition and celebration of cultural diversity' },
-        { question: 'What is the Canadian Charter of Rights and Freedoms?', answer: 'A part of the Constitution that protects individual rights' },
-        { question: 'Who was the first Prime Minister of Canada?', answer: 'Sir John A. Macdonald' },
-        { question: 'What are the Prairie provinces?', answer: 'Alberta, Saskatchewan, Manitoba' },
-        { question: 'What is the economic capital of Canada?', answer: 'Toronto' }
-    ];
+  private allFlashcards: Flashcard[] = [];
+  private isLoading = true;
 
-    getRandomSet(count = 20): Flashcard[] {
-        return [...this.allFlashcards]
-            .sort(() => 0.5 - Math.random())
-            .slice(0, count);
+  // Create a signal to hold the random set of flashcards
+  private flashcardsSignal = signal<Flashcard[]>([]);
+
+  constructor(private http: HttpClient) {
+    this.loadFlashcards();
+  }
+
+  getRandomSet(count = 20): Signal<Flashcard[]> {
+    // If data is already loaded, immediately generate a random set
+    if (!this.isLoading && this.allFlashcards.length > 0) {
+      this.generateRandomSet(count);
     }
+
+    // Always return the signal - it will be updated when data loads
+    return this.flashcardsSignal.asReadonly();
+  }
+
+  private generateRandomSet(count: number): void {
+    const randomSet = [...this.allFlashcards]
+      .sort(() => 0.5 - Math.random())
+      .slice(0, Math.min(count, this.allFlashcards.length));
+
+    this.flashcardsSignal.set(randomSet);
+  }
+
+  private loadFlashcards(): void {
+    this.http.get<Flashcard[]>('assets/flashcards.json')
+      .pipe(
+        tap(flashcards => {
+          this.allFlashcards = flashcards;
+          // Generate the random set as soon as data is loaded
+          this.generateRandomSet(20);
+        }),
+        catchError(error => {
+          console.error('Error loading flashcards:', error);
+          return of([]);
+        }),
+        finalize(() => {
+          this.isLoading = false;
+        })
+      )
+      .subscribe();
+  }
 }
