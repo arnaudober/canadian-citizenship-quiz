@@ -1,8 +1,8 @@
 <mat-toolbar color="primary">
-  <span class="title">🇨🇦 Canadian Citizenship Flashcards</span>
+  <span class="title">Canadian Citizenship Flashcards</span>
   <span class="spacer"></span>
   <button mat-icon-button (click)="startNewSet()" aria-label="Restart">
-    <mat-icon>refresh</mat-icon>
+    <mat-icon [style.color]="'white'">refresh</mat-icon>
   </button>
 </mat-toolbar>
 
@@ -15,7 +15,7 @@
     <mat-card class="card" [ngClass]="{ answer: showAnswer, question: !showAnswer }" (click)="revealAnswer()">
       <mat-card-content>
         <p class="card-text">
-          {{ showAnswer ? cards()[index]?.answer : cards()[index]?.question }}
+          {{ showAnswer ? cards()[index].answer : cards()[index].question }}
         </p>
       </mat-card-content>
     </mat-card>

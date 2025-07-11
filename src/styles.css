@@ -7,3 +7,8 @@ mat-card.card {
 
   box-shadow: none !important;
 }
+
+mat-toolbar.mat-primary {
+  background-color: #c9184a !important;
+  color: white;
+}
