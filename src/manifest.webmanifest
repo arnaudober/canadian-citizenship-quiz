@@ -1,0 +1,16 @@
+{
+  "name": "Canadian Citizenship Flashcards",
+  "short_name": "Citizenship Flashcards",
+  "display": "standalone",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#000000",
+  "icons": [
+      {
+        "src": "assets/favicon.png",
+        "sizes": "1024x1024",
+        "type": "image/png"
+      }
+  ]
+}
