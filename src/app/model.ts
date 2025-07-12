@@ -1,4 +1,5 @@
-export interface Flashcard {
+export interface Question {
     question: string;
-    answer: string;
+    options: [string, string, string, string]; // Four possible answers for each question
+    correctOptionIndex: number;
 }

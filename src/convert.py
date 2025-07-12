@@ -1,84 +1,74 @@
 import json
 import re
 
-# Load data
-with open("dataset.txt", "r", encoding="utf-8") as file:
+def parse_questions(file_path):
+  """
+  Parse questions from the dataset.txt file and convert them to structured data.
+
+  Args:
+      file_path (str): Path to the dataset.txt file
+
+  Returns:
+      list: List of questions with options and correct answer index
+  """
+  # Read the file content
+  with open(file_path, 'r', encoding='utf-8') as file:
     content = file.read()
 
-# Print first 300 characters to understand the format
-print("First part of file:", content[:300])
+  # Regular expression to match question patterns
+  pattern = r'(\d+)\.\s+(.*?)\n(.*?)\n(.*?)\n(.*?)\n(.*?)(?=\n\d+\.|$)'
+  matches = re.findall(pattern, content, re.DOTALL)
 
-# Split into individual questions (numbered items)
-questions_raw = []
-current_question = []
-lines = [line.strip() for line in content.split('\n') if line.strip()]
+  questions = []
 
-# Debug - print total lines
-print(f"Total lines: {len(lines)}")
+  for match in matches:
+    question_number = match[0]
+    question_text = match[1].strip()
+    options = [option.strip() for option in match[2:6]]
 
-# Try a more robust way to detect question numbers using regex
-for i, line in enumerate(lines):
-    # Look for pattern: digit(s) followed by period and space
-    if re.match(r'^\d+\.\s', line):
-        if current_question:  # Save previous question if it exists
-            questions_raw.append(current_question)
-        current_question = [line]
-        print(f"Detected question at line {i+1}: {line[:50]}...")
-    else:
-        if not current_question:  # Handle case where file doesn't start with a numbered question
-            print(f"Line {i+1} doesn't match a question pattern and no current question: {line[:50]}...")
-            current_question = ["Unnumbered question"]
-        current_question.append(line)
+    # Find the correct option index
+    correct_option_index = None
+    for i, option in enumerate(options):
+      if "(correct answer)" in option:
+        correct_option_index = i
+        # Remove the "(correct answer)" marker
+        options[i] = option.replace("(correct answer)", "").strip()
 
-# Add the last question
-if current_question:
-    questions_raw.append(current_question)
+    # Skip questions with missing correct answer
+    if correct_option_index is None:
+      continue
 
-# Print how many questions were found
-print(f"Found {len(questions_raw)} questions")
+    # Create a question object (matching TypeScript interface)
+    question_obj = {
+      "question": question_text,
+      "options": options,
+      "correctOptionIndex": correct_option_index
+    }
 
-# Process each question into the required format
-flashcards = []
-for i, q_lines in enumerate(questions_raw):
-    try:
-        question_text = q_lines[0]
-        options = q_lines[1:] if len(q_lines) > 1 else []
+    questions.append(question_obj)
 
-        # Find the correct answer (marked with "correct answer")
-        correct_answer = ""
-        for option in options:
-            if "(correct answer)" in option:
-                # Remove the "(correct answer)" marker
-                correct_answer = option.replace("(correct answer)", "").strip()
-                break
+  return questions
 
-        # Create flashcard
-        flashcard = {
-            "question": question_text,
-            "answer": correct_answer
-        }
-        flashcards.append(flashcard)
+def main():
+  # Parse questions from the dataset file
+  questions = parse_questions('dataset.txt')
 
-        # Debug - print each processed question
-        print(f"Processed Q{i+1}: {question_text[:50]}... Answer: {correct_answer[:50]}...")
+  # Save questions to a JSON file
+  with open('assets/questions.json', 'w', encoding='utf-8') as file:
+    json.dump(questions, file, indent=2)
 
-    except Exception as e:
-        print(f"Error processing question {i+1}: {e}")
-        print(f"Question lines: {q_lines}")
+  # Print summary
+  print(f"Successfully parsed {len(questions)} questions.")
+  print("Data saved to questions.json")
 
-# Output to TypeScript-like format
-with open("flashcards_output.txt", "w", encoding="utf-8") as ts_file:
-    ts_file.write("[\n")
-    for card in flashcards:
-        q = card["question"].replace("'", "\\'")
-        a = card["answer"].replace("'", "\\'")
-        ts_file.write(f"  {{ question: '{q}', answer: '{a}' }},\n")
-    ts_file.write("]\n")
+  # Print a sample question for verification
+  if questions:
+    print("\nSample Question:")
+    sample = questions[0]
+    print(f"Question: {sample['question']}")
+    for i, option in enumerate(sample['options']):
+      correct = " (correct)" if i == sample['correctOptionIndex'] else ""
+      print(f"Option {i+1}: {option}{correct}")
 
-# Save as JSON
-with open("flashcards.json", "w", encoding="utf-8") as json_file:
-    json.dump(flashcards, json_file, ensure_ascii=False, indent=2)
-
-print(f"✅ Generated {len(flashcards)} flashcards.")
-print("📄 flashcards_output.txt (for Angular service)")
-print("📄 flashcards.json (optional structured export)")
+if __name__ == "__main__":
+  main()
