@@ -15,16 +15,15 @@
   position: sticky;
   top: 0;
   z-index: 10;
-  padding-top: var(--safe-area-top);
-  padding-left: max(16px, var(--safe-area-left));
-  padding-right: max(16px, var(--safe-area-right));
+  padding: 0 16px;
   border-radius: 0 0 var(--border-radius) var(--border-radius);
   box-shadow: var(--card-shadow);
   display: flex;
   align-items: center;
   background-color: var(--primary-color);
   color: var(--text-on-primary);
-  height: 64px;
+  min-height: 64px;
+  height: auto;
 }
 
 .title {
@@ -195,6 +194,13 @@
 .option-item:nth-child(4) { animation-delay: 150ms; }
 
 /* Media queries for responsive design */
+@media screen and (min-width: 768px) {
+  .toolbar {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
 @media screen and (max-width: 700px) {
   .question-text {
     font-size: 1.3rem;
@@ -255,5 +261,32 @@
 
   .option-item:active {
     background-color: rgba(241, 250, 238, 0.8);
+  }
+}
+
+@supports (-webkit-touch-callout: none) {
+  /* iOS-specific styles */
+  .toolbar {
+    padding-top: max(0px, var(--safe-area-top));
+    padding-left: max(16px, var(--safe-area-left));
+    padding-right: max(16px, var(--safe-area-right));
+  }
+
+  /* Fix for notch and dynamic island */
+  @media screen and (orientation: portrait) and (max-width: 428px) {
+    .toolbar {
+      min-height: calc(64px + var(--safe-area-top));
+    }
+
+    .title, .stats, .reset-button {
+      margin-top: var(--safe-area-top);
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    .toolbar {
+      padding-left: max(24px, var(--safe-area-left));
+      padding-right: max(24px, var(--safe-area-right));
+    }
   }
 }
