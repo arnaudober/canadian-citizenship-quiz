@@ -1,5 +1,5 @@
-<mat-toolbar color="primary" class="toolbar">
-  <span class="title">Canadian Citizenship Quiz</span>
+<mat-toolbar class="toolbar">
+  <span class="title">Citizenship Quiz</span>
   <span class="spacer"></span>
   <span class="stats">
     <span class="score" [ngClass]="{'positive': score > 0, 'neutral': score === 0}">{{ score }}</span>
@@ -29,7 +29,10 @@
        'incorrect-option': showAnswer && i === selectedOption && i !== getCurrentQuestion()!.correctOptionIndex,
        'selected': selectedOption === i
      }"
-                   (click)="!showAnswer && selectOption(i)">
+                   (click)="!showAnswer && selectOption(i)"
+                   [attr.aria-selected]="selectedOption === i"
+                   [attr.role]="'option'"
+                   [attr.aria-disabled]="showAnswer">
                 {{ option }}
               </div>
             }
