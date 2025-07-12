@@ -12,26 +12,29 @@
 </mat-toolbar>
 
 <main class="main-container">
-  <div class="card-wrapper" *ngIf="getCurrentQuestion()">
-    <mat-card class="card">
-      <mat-card-content>
-        <p class="question-text">
-          {{ getCurrentQuestion()!.question }}
-        </p>
+  @if (getCurrentQuestion()) {
+    <div class="card-wrapper">
+      <mat-card class="card">
+        <mat-card-content>
+          <p class="question-text">
+            {{ getCurrentQuestion()!.question }}
+          </p>
 
-        <div class="options-container">
-          <div *ngFor="let option of getCurrentQuestion()!.options; let i = index"
-               class="option-item"
-               [ngClass]="{
-                 'correct-option': showAnswer && i === getCurrentQuestion()!.correctOptionIndex,
-                 'incorrect-option': showAnswer && i === selectedOption && i !== getCurrentQuestion()!.correctOptionIndex,
-                 'selected': selectedOption === i
-               }"
-               (click)="!showAnswer && selectOption(i)">
-            {{ option }}
+          <div class="options-container">
+            @for (option of getCurrentQuestion()!.options; track option; let i = $index) {
+              <div class="option-item"
+                   [ngClass]="{
+       'correct-option': showAnswer && i === getCurrentQuestion()!.correctOptionIndex,
+       'incorrect-option': showAnswer && i === selectedOption && i !== getCurrentQuestion()!.correctOptionIndex,
+       'selected': selectedOption === i
+     }"
+                   (click)="!showAnswer && selectOption(i)">
+                {{ option }}
+              </div>
+            }
           </div>
-        </div>
-      </mat-card-content>
-    </mat-card>
-  </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  }
 </main>
