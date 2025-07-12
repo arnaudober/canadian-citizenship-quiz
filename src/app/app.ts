@@ -1,4 +1,3 @@
-
 import {Component, OnInit, Signal} from '@angular/core';
 import {Question} from './model';
 import {QuestionsService} from './service';
@@ -9,13 +8,15 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatCardModule} from '@angular/material/card';
 import {MatDividerModule} from '@angular/material/divider';
 import {FormsModule} from '@angular/forms';
+import {fadeInOut, optionAnimation, staggerOptions} from './animations';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrls: ['./app.css'],
   standalone: true,
-  imports: [CommonModule, MatToolbarModule, MatButtonModule, MatIconModule, MatCardModule, MatDividerModule, FormsModule]
+  imports: [CommonModule, MatToolbarModule, MatButtonModule, MatIconModule, MatCardModule, MatDividerModule, FormsModule],
+  animations: [fadeInOut, optionAnimation, staggerOptions]
 })
 export class AppComponent implements OnInit {
   questions!: Signal<Question[]>;
@@ -34,6 +35,7 @@ export class AppComponent implements OnInit {
 
   resetScore(): void {
     this.score = 0;
+    this.questionsAnswered = 0;
   }
 
   selectOption(index: number): void {

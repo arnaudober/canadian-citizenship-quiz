@@ -1,4 +1,4 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" class="toolbar">
   <span class="title">Canadian Citizenship Quiz</span>
   <span class="spacer"></span>
   <span class="stats">
@@ -13,16 +13,17 @@
 
 <main class="main-container">
   @if (getCurrentQuestion()) {
-    <div class="card-wrapper">
+    <div class="card-wrapper" [@fadeInOut]>
       <mat-card class="card">
         <mat-card-content>
           <p class="question-text">
             {{ getCurrentQuestion()!.question }}
           </p>
 
-          <div class="options-container">
+          <div class="options-container" [@staggerOptions]>
             @for (option of getCurrentQuestion()!.options; track option; let i = $index) {
               <div class="option-item"
+                   [@optionAnimation]
                    [ngClass]="{
        'correct-option': showAnswer && i === getCurrentQuestion()!.correctOptionIndex,
        'incorrect-option': showAnswer && i === selectedOption && i !== getCurrentQuestion()!.correctOptionIndex,
