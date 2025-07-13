@@ -17,7 +17,7 @@
               "base": "docs",
               "browser": ""
             },
-            "baseHref": "/citizenship-memory-game/",
+            "baseHref": "/canadian-citizenship-quiz/",
             "browser": "src/main.ts",
             "polyfills": [
               "zone.js"

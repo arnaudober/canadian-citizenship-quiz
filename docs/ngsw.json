@@ -1,7 +1,7 @@
 {
   "configVersion": 1,
-  "timestamp": 1752369088484,
-  "index": "/citizenship-memory-game/index.html",
+  "timestamp": 1752369243625,
+  "index": "/canadian-citizenship-quiz/index.html",
   "assetGroups": [
     {
       "name": "app",
@@ -11,10 +11,10 @@
         "ignoreVary": true
       },
       "urls": [
-        "/citizenship-memory-game/index.html",
-        "/citizenship-memory-game/main-YB456ICS.js",
-        "/citizenship-memory-game/polyfills-B6TNHZQ6.js",
-        "/citizenship-memory-game/styles-YZ762LFF.css"
+        "/canadian-citizenship-quiz/index.html",
+        "/canadian-citizenship-quiz/main-YB456ICS.js",
+        "/canadian-citizenship-quiz/polyfills-B6TNHZQ6.js",
+        "/canadian-citizenship-quiz/styles-YZ762LFF.css"
       ],
       "patterns": []
     },
@@ -26,18 +26,18 @@
         "ignoreVary": true
       },
       "urls": [
-        "/citizenship-memory-game/assets/favicon.png"
+        "/canadian-citizenship-quiz/assets/favicon.png"
       ],
       "patterns": []
     }
   ],
   "dataGroups": [],
   "hashTable": {
-    "/citizenship-memory-game/assets/favicon.png": "a865f45e1e0af40defdedab8e1b57ee1afcfb3c6",
-    "/citizenship-memory-game/index.html": "2964d1faad863961c2df2be2ce0e172cdbee1bc7",
-    "/citizenship-memory-game/main-YB456ICS.js": "ecdd338411745063d9aa812c57f449278d85ff1e",
-    "/citizenship-memory-game/polyfills-B6TNHZQ6.js": "bf76ac291d7f51c1139b7edcf86b359a30c08c64",
-    "/citizenship-memory-game/styles-YZ762LFF.css": "718684925b4cf56ecf9a67a5ac03dc00f581b489"
+    "/canadian-citizenship-quiz/assets/favicon.png": "a865f45e1e0af40defdedab8e1b57ee1afcfb3c6",
+    "/canadian-citizenship-quiz/index.html": "c06ca5f2edb85ea6b3b655aa7a8e8774bb0b6c7d",
+    "/canadian-citizenship-quiz/main-YB456ICS.js": "ecdd338411745063d9aa812c57f449278d85ff1e",
+    "/canadian-citizenship-quiz/polyfills-B6TNHZQ6.js": "bf76ac291d7f51c1139b7edcf86b359a30c08c64",
+    "/canadian-citizenship-quiz/styles-YZ762LFF.css": "718684925b4cf56ecf9a67a5ac03dc00f581b489"
   },
   "navigationUrls": [
     {
