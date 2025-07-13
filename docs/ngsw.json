@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1752369386111,
+  "timestamp": 1752369597654,
   "index": "/canadian-citizenship-quiz/index.html",
   "assetGroups": [
     {
@@ -35,9 +35,9 @@
   "dataGroups": [],
   "hashTable": {
     "/canadian-citizenship-quiz/assets/favicon.png": "a865f45e1e0af40defdedab8e1b57ee1afcfb3c6",
-    "/canadian-citizenship-quiz/index.html": "c06ca5f2edb85ea6b3b655aa7a8e8774bb0b6c7d",
+    "/canadian-citizenship-quiz/index.html": "b8716a576a5fc12e4a43e84c8ce3bd87d773ab8a",
     "/canadian-citizenship-quiz/main-YB456ICS.js": "ecdd338411745063d9aa812c57f449278d85ff1e",
-    "/canadian-citizenship-quiz/manifest.webmanifest": "4e4d9fddbaee86ca418bc7db296daa9949ffb7c6",
+    "/canadian-citizenship-quiz/manifest.webmanifest": "8adfee25265bd4223b880db1ad718ccc182e0a5d",
     "/canadian-citizenship-quiz/polyfills-B6TNHZQ6.js": "bf76ac291d7f51c1139b7edcf86b359a30c08c64",
     "/canadian-citizenship-quiz/styles-YZ762LFF.css": "718684925b4cf56ecf9a67a5ac03dc00f581b489"
   },
