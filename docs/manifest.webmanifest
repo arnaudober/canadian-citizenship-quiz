@@ -1,0 +1,19 @@
+{
+  "name": "Canadian Citizenship Quiz",
+  "short_name": "CCQuiz",
+  "display": "standalone",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#2196F3",
+  "background_color": "#F5F7FA",
+  "scope": "./",
+  "start_url": "./",
+  "icons": [
+      {
+        "src": "assets/favicon.png",
+        "sizes": "1024x1024",
+        "type": "image/png"
+      }
+  ]
+}
