@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "citizenship-flashcards": {
+    "canadian-citizenship-quiz": {
       "projectType": "application",
       "schematics": {},
       "root": "",
