@@ -29,7 +29,7 @@
         </mat-card-content>
       </mat-card>
     </div>
-  } @else {
+  } @else if (getCurrentQuestion()) {
     <div class="card-wrapper" [@fadeInOut]="questionsAnswered < setSize">
       <mat-card class="card">
         <mat-card-content>
