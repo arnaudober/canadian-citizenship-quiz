@@ -1,19 +1,36 @@
 <mat-toolbar class="toolbar">
   <span class="title">Citizenship Quiz</span>
   <span class="spacer"></span>
-  <span class="stats">
-    <span class="score" [ngClass]="{'positive': score > 0, 'neutral': score === 0}">{{ score }}</span>
+  @if (showScoreSummary()) {
+    <button matButton="outlined" class="restart-button" (click)="startNewSet()">
+      Start again
+      <mat-icon>refresh</mat-icon>
+    </button>
+  } @else {
+    <span class="stats">
+    <span class="score">{{ score }}</span>
     <span class="divider">|</span>
     <span class="counter">{{ questionsAnswered }} answered</span>
   </span>
-  <button mat-icon-button class="reset-button" (click)="resetScore()" aria-label="Reset score">
-    <mat-icon [style.color]="'white'">refresh</mat-icon>
-  </button>
+  }
 </mat-toolbar>
 
 <main class="main-container">
-  @if (getCurrentQuestion()) {
+  @if (showScoreSummary()) {
     <div class="card-wrapper" [@fadeInOut]>
+      <mat-card class="card score-summary-card">
+        <mat-card-content>
+          <div class="score-summary">
+            <div class="summary-title">Set completed!</div>
+
+            <div class="score-circle">{{ score }} / {{ setSize }}</div>
+            <span>correct answers</span>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  } @else {
+    <div class="card-wrapper" [@fadeInOut]="questionsAnswered < setSize">
       <mat-card class="card">
         <mat-card-content>
           <p class="question-text">
@@ -25,14 +42,14 @@
               <div class="option-item"
                    [@optionAnimation]
                    [ngClass]="{
-       'correct-option': showAnswer && i === getCurrentQuestion()!.correctOptionIndex,
-       'incorrect-option': showAnswer && i === selectedOption && i !== getCurrentQuestion()!.correctOptionIndex,
-       'selected': selectedOption === i
+       'correct-option': showAnswerSheet() && i === getCurrentQuestion()!.correctOptionIndex,
+       'incorrect-option': showAnswerSheet() && i === selectedUserOption && i !== getCurrentQuestion()!.correctOptionIndex,
+       'selected': selectedUserOption === i
      }"
-                   (click)="!showAnswer && selectOption(i)"
-                   [attr.aria-selected]="selectedOption === i"
+                   (click)="!showAnswerSheet() && selectOption(i)"
+                   [attr.aria-selected]="selectedUserOption === i"
                    [attr.role]="'option'"
-                   [attr.aria-disabled]="showAnswer">
+                   [attr.aria-disabled]="showAnswerSheet()">
                 {{ option }}
               </div>
             }

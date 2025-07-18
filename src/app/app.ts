@@ -1,5 +1,5 @@
-import {Component, OnInit, Signal} from '@angular/core';
-import {Question} from './model';
+import {Component, OnInit, signal, Signal} from '@angular/core';
+import {Question, SET_SIZE} from './model';
 import {QuestionsService} from './service';
 import {CommonModule} from '@angular/common';
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -19,67 +19,74 @@ import {fadeInOut, optionAnimation, staggerOptions} from './animations';
   animations: [fadeInOut, optionAnimation, staggerOptions]
 })
 export class AppComponent implements OnInit {
+  // Signals
   questions!: Signal<Question[]>;
-  currentIndex = 0;
-  showAnswer = false;
-  selectedOption: number | null = null;
+  showScoreSummary = signal(false);
+  showAnswerSheet = signal(false);
+
+  // Queue positioning
+  currentQuestionIndex = 0;
+  selectedUserOption: number | null = null;
+  // Score
   questionsAnswered = 0;
   score = 0;
 
-  constructor(private questionsService: QuestionsService) {
+  setSize = SET_SIZE;
+
+  constructor(private service: QuestionsService) {
   }
 
   ngOnInit(): void {
-    this.questions = this.questionsService.getQuestions();
-  }
-
-  resetScore(): void {
-    this.score = 0;
-    this.questionsAnswered = 0;
+    this.questions = this.service.getQuestions();
   }
 
   selectOption(index: number): void {
-    if (!this.showAnswer) {
-      this.selectedOption = index;
-      this.showAnswer = true;
+    if (!this.showAnswerSheet()) {
+      this.selectedUserOption = index;
+      this.showAnswerSheet.set(true);
       this.questionsAnswered++;
 
       // Update score based on answer correctness
       if (this.isCorrectAnswer()) {
         this.score++;
-      } else {
-        this.score = Math.max(0, this.score - 1); // Prevent negative score if desired
       }
 
-      // Automatically go to next question after a delay for both correct and incorrect answers
-      // Use a shorter delay for correct answers, slightly longer for incorrect to allow time to see the correct answer
+      const isLastQuestion = this.questionsAnswered >= SET_SIZE;
       const delay = this.isCorrectAnswer() ? 800 : 1500;
-      setTimeout(() => this.goToNext(), delay);
-    }
 
+      setTimeout(() => {
+        if (isLastQuestion) {
+          this.showScoreSummary.set(true);
+        } else {
+          this.currentQuestionIndex++;
+          this.showAnswerSheet.set(false);
+          this.selectedUserOption = null;
+        }
+      }, delay);
+    }
   }
 
   isCorrectAnswer(): boolean {
-    if (this.selectedOption === null) return false;
+    if (this.selectedUserOption === null) return false;
     const currentQuestions = this.questions();
     if (currentQuestions.length === 0) return false;
 
-    return this.selectedOption === currentQuestions[this.currentIndex].correctOptionIndex;
+    return this.selectedUserOption === currentQuestions[this.currentQuestionIndex].correctOptionIndex;
   }
 
-  goToNext(): void {
-    this.currentIndex++;
-    // If we're reaching the end of our current questions, ensure we have more
-    if (this.currentIndex >= this.questions().length - 5) {
-      this.questionsService.ensureQueueHasQuestions();
-    }
+  startNewSet(): void {
+    this.score = 0;
+    this.currentQuestionIndex = 0;
+    this.questionsAnswered = 0;
+    this.showAnswerSheet.set(false);
+    this.selectedUserOption = null;
+    this.showScoreSummary.set(false);
 
-    this.showAnswer = false;
-    this.selectedOption = null;
+    this.service.createNewQuestionSet();
   }
 
   getCurrentQuestion(): Question | null {
     const currentQuestions = this.questions();
-    return currentQuestions.length > this.currentIndex ? currentQuestions[this.currentIndex] : null;
+    return currentQuestions.length > this.currentQuestionIndex ? currentQuestions[this.currentQuestionIndex] : null;
   }
 }

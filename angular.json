@@ -66,10 +66,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "citizenship-flashcards:build:production"
+              "buildTarget": "canadian-citizenship-quiz:build:production"
             },
             "development": {
-              "buildTarget": "citizenship-flashcards:build:development"
+              "buildTarget": "canadian-citizenship-quiz:build:development"
             }
           },
           "defaultConfiguration": "development"
