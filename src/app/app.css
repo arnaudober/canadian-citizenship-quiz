@@ -55,6 +55,7 @@
   height: 44px;
 }
 .next-button mat-icon { margin-left: 4px; vertical-align: middle; }
+.new-set-button mat-icon { margin-right: 4px; vertical-align: middle; }
 .loading-card { padding: calc(var(--su) * 3); }
 .loading-skeleton { padding: calc(var(--su) * 2); }
 @keyframes shimmer {
