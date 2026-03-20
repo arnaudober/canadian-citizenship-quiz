@@ -23,7 +23,7 @@
     "@angular/animations": "^20.1.0",
     "@angular/cdk": "^20.1.0",
     "@angular/common": "^20.3.14",
-    "@angular/compiler": "^20.1.0",
+    "@angular/compiler": "^20.3.18",
     "@angular/core": "^20.3.16",
     "@angular/forms": "^20.1.0",
     "@angular/material": "^20.1.0",
@@ -37,7 +37,7 @@
   "devDependencies": {
     "@angular/build": "^20.1.0",
     "@angular/cli": "^20.1.0",
-    "@angular/compiler-cli": "^20.1.0",
+    "@angular/compiler-cli": "^20.3.18",
     "@types/jasmine": "~5.1.0",
     "angular-cli-ghpages": "^2.0.3",
     "csso-cli": "^4.0.2",
