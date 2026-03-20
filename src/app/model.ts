@@ -4,4 +4,4 @@ export interface Question {
     correctOptionIndex: number;
 }
 
-export const SET_SIZE = 5;
+export const SET_SIZE = 20;
