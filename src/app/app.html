@@ -6,25 +6,75 @@
       Start again
       <mat-icon>refresh</mat-icon>
     </button>
-  } @else {
+  } @else if (!isLoading()) {
     <span class="stats">
-    <span class="score">{{ score }}</span>
-    <span class="divider">|</span>
-    <span class="counter">{{ questionsAnswered }} answered</span>
-  </span>
+      <span class="score-value">{{ score }}</span>
+      <span class="score-sep">correct</span>
+      <span class="score-divider"></span>
+      <span class="score-question">Q{{ currentQuestionIndex + 1 }}<span class="score-total">/{{ setSize }}</span></span>
+    </span>
   }
 </mat-toolbar>
 
 <main class="main-container">
-  @if (showScoreSummary()) {
+  @if (isLoading()) {
+    <div class="card-wrapper" [@fadeInOut]>
+      <mat-card class="card loading-card">
+        <mat-card-content>
+          <div class="loading-skeleton">
+            <div class="skeleton-line skeleton-question"></div>
+            <div class="skeleton-line skeleton-question short"></div>
+            <div class="skeleton-options">
+              <div class="skeleton-option"></div>
+              <div class="skeleton-option"></div>
+              <div class="skeleton-option"></div>
+              <div class="skeleton-option"></div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  } @else if (showScoreSummary()) {
     <div class="card-wrapper" [@fadeInOut]>
       <mat-card class="card score-summary-card">
         <mat-card-content>
           <div class="score-summary">
-            <div class="summary-title">Set completed!</div>
+            <div class="summary-title">
+              @if (score === setSize) {
+                Perfect score! 🏆
+              } @else if (score >= setSize * 0.8) {
+                Great job! 🎉
+              } @else if (score >= setSize * 0.6) {
+                Good effort! 💪
+              } @else {
+                Keep practicing! 📚
+              }
+            </div>
 
             <div class="score-circle">{{ score }} / {{ setSize }}</div>
-            <span>correct answers</span>
+            <span class="score-percent">{{ (score / setSize * 100) | number:'1.0-0' }}% correct</span>
+
+            @if (wrongAnswers.length > 0) {
+              <div class="wrong-answers-section">
+                <h3 class="wrong-answers-title">Review incorrect answers</h3>
+                @for (item of wrongAnswers; track item.question) {
+                  <div class="wrong-answer-item">
+                    <p class="wrong-question">{{ item.question }}</p>
+                    <div class="wrong-answer-detail">
+                      <span class="your-answer">✗ {{ item.selectedOption }}</span>
+                      <span class="correct-answer">✓ {{ item.correctOption }}</span>
+                    </div>
+                  </div>
+                }
+              </div>
+            }
+
+            <button mat-flat-button class="new-set-button" (click)="startNewSet()">
+              <ng-container>
+                <mat-icon>refresh</mat-icon>
+                Start new set
+              </ng-container>
+            </button>
           </div>
         </mat-card-content>
       </mat-card>
@@ -33,27 +83,52 @@
     <div class="card-wrapper" [@fadeInOut]="questionsAnswered < setSize">
       <mat-card class="card">
         <mat-card-content>
+          <div class="progress-section">
+            <span class="progress-label">Question {{ currentQuestionIndex + 1 }} of {{ setSize }}</span>
+            <mat-progress-bar mode="determinate" [value]="(currentQuestionIndex / setSize) * 100" class="progress-bar"></mat-progress-bar>
+          </div>
+
           <p class="question-text">
             {{ getCurrentQuestion()!.question }}
           </p>
 
-          <div class="options-container" [@staggerOptions]>
+          <div class="options-container"
+               role="radiogroup"
+               [attr.aria-label]="getCurrentQuestion()!.question"
+               [@staggerOptions]>
             @for (option of getCurrentQuestion()!.options; track option; let i = $index) {
               <div class="option-item"
                    [@optionAnimation]
                    [ngClass]="{
-       'correct-option': showAnswerSheet() && i === getCurrentQuestion()!.correctOptionIndex,
-       'incorrect-option': showAnswerSheet() && i === selectedUserOption && i !== getCurrentQuestion()!.correctOptionIndex,
-       'selected': selectedUserOption === i
-     }"
+                     'correct-option': showAnswerSheet() && i === getCurrentQuestion()!.correctOptionIndex,
+                     'incorrect-option': showAnswerSheet() && i === selectedUserOption && i !== getCurrentQuestion()!.correctOptionIndex,
+                     'selected': selectedUserOption === i,
+                     'answered': showAnswerSheet()
+                   }"
                    (click)="!showAnswerSheet() && selectOption(i)"
-                   [attr.aria-selected]="selectedUserOption === i"
-                   [attr.role]="'option'"
-                   [attr.aria-disabled]="showAnswerSheet()">
+                   role="radio"
+                   [attr.aria-checked]="selectedUserOption === i"
+                   [attr.aria-disabled]="showAnswerSheet() || null"
+                   [attr.tabindex]="showAnswerSheet() ? -1 : 0"
+                   (keydown.enter)="!showAnswerSheet() && selectOption(i)"
+                   (keydown.space)="!showAnswerSheet() && selectOption(i)">
+                <span class="option-label">{{ OPTION_LABELS[i] }}</span>
                 {{ option }}
               </div>
             }
           </div>
+
+          @if (showAnswerSheet()) {
+            <div class="next-button-container">
+              <button mat-flat-button class="next-button" (click)="nextQuestion()">
+                @if (questionsAnswered + 1 >= setSize) {
+                  <ng-container>See results <mat-icon>emoji_events</mat-icon></ng-container>
+                } @else {
+                  <ng-container>Next question <mat-icon>arrow_forward</mat-icon></ng-container>
+                }
+              </button>
+            </div>
+          }
         </mat-card-content>
       </mat-card>
     </div>
