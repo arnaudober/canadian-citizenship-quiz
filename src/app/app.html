@@ -8,7 +8,10 @@
     </button>
   } @else if (!isLoading()) {
     <span class="stats">
-      <span class="score">{{ score }} / {{ setSize }}</span>
+      <span class="score-value">{{ score }}</span>
+      <span class="score-sep">correct</span>
+      <span class="score-divider"></span>
+      <span class="score-question">Q{{ currentQuestionIndex + 1 }}<span class="score-total">/{{ setSize }}</span></span>
     </span>
   }
 </mat-toolbar>
