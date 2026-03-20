@@ -2,6 +2,8 @@
 
 An interactive quiz app to help you prepare for the Canadian citizenship test. Built with Angular 20.
 
+![IMG_5521](https://github.com/user-attachments/assets/8f1c2d4c-0026-4bb9-976b-9202ee719a07)
+
 ## Features
 
 - **Random question sets** — 20 questions drawn randomly from the full question bank each round
