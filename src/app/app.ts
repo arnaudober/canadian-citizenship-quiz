@@ -7,15 +7,22 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatCardModule} from '@angular/material/card';
 import {MatDividerModule} from '@angular/material/divider';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {FormsModule} from '@angular/forms';
 import {fadeInOut, optionAnimation, staggerOptions} from './animations';
+
+export interface WrongAnswer {
+  question: string;
+  selectedOption: string;
+  correctOption: string;
+}
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrls: ['./app.css'],
   standalone: true,
-  imports: [CommonModule, MatToolbarModule, MatButtonModule, MatIconModule, MatCardModule, MatDividerModule, FormsModule],
+  imports: [CommonModule, MatToolbarModule, MatButtonModule, MatIconModule, MatCardModule, MatDividerModule, MatProgressBarModule, FormsModule],
   animations: [fadeInOut, optionAnimation, staggerOptions]
 })
 export class AppComponent implements OnInit {
@@ -23,6 +30,7 @@ export class AppComponent implements OnInit {
   questions!: Signal<Question[]>;
   showScoreSummary = signal(false);
   showAnswerSheet = signal(false);
+  isLoading = signal(true);
 
   // Queue positioning
   currentQuestionIndex = 0;
@@ -30,39 +38,57 @@ export class AppComponent implements OnInit {
   // Score
   questionsAnswered = 0;
   score = 0;
+  wrongAnswers: WrongAnswer[] = [];
 
   setSize = SET_SIZE;
+  readonly OPTION_LABELS = ['A', 'B', 'C', 'D'];
 
   constructor(private service: QuestionsService) {
   }
 
   ngOnInit(): void {
     this.questions = this.service.getQuestions();
+    // Watch for questions to be loaded
+    const checkLoaded = setInterval(() => {
+      if (this.questions().length > 0) {
+        this.isLoading.set(false);
+        clearInterval(checkLoaded);
+      }
+    }, 50);
+  }
+
+  get progressValue(): number {
+    return (this.questionsAnswered / this.setSize) * 100;
   }
 
   selectOption(index: number): void {
     if (!this.showAnswerSheet()) {
       this.selectedUserOption = index;
       this.showAnswerSheet.set(true);
-      this.questionsAnswered++;
 
       // Update score based on answer correctness
       if (this.isCorrectAnswer()) {
         this.score++;
+      } else {
+        const q = this.getCurrentQuestion()!;
+        this.wrongAnswers.push({
+          question: q.question,
+          selectedOption: q.options[index],
+          correctOption: q.options[q.correctOptionIndex]
+        });
       }
+    }
+  }
 
-      const isLastQuestion = this.questionsAnswered >= SET_SIZE;
-      const delay = this.isCorrectAnswer() ? 800 : 1500;
-
-      setTimeout(() => {
-        if (isLastQuestion) {
-          this.showScoreSummary.set(true);
-        } else {
-          this.currentQuestionIndex++;
-          this.showAnswerSheet.set(false);
-          this.selectedUserOption = null;
-        }
-      }, delay);
+  nextQuestion(): void {
+    this.questionsAnswered++;
+    const isLastQuestion = this.questionsAnswered >= SET_SIZE;
+    if (isLastQuestion) {
+      this.showScoreSummary.set(true);
+    } else {
+      this.currentQuestionIndex++;
+      this.showAnswerSheet.set(false);
+      this.selectedUserOption = null;
     }
   }
 
@@ -81,6 +107,7 @@ export class AppComponent implements OnInit {
     this.showAnswerSheet.set(false);
     this.selectedUserOption = null;
     this.showScoreSummary.set(false);
+    this.wrongAnswers = [];
 
     this.service.createNewQuestionSet();
   }

@@ -8,6 +8,192 @@
   background: linear-gradient(to bottom, var(--background-color), var(--light-color));
 }
 
+/* ── Progress bar ── */
+.progress-section {
+  padding: calc(var(--spacing-unit) * 2) calc(var(--spacing-unit) * 3) calc(var(--spacing-unit) * 1);
+}
+
+.progress-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
+
+.progress-bar {
+  border-radius: 4px;
+  height: 6px;
+  --mdc-linear-progress-active-indicator-color: var(--primary-color);
+  --mdc-linear-progress-track-color: rgba(230, 57, 70, 0.15);
+}
+
+/* ── Option letter labels ── */
+.option-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  min-width: 26px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.06);
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-right: 12px;
+  color: var(--text-secondary);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.correct-option .option-label {
+  background-color: var(--success-color);
+  color: white;
+}
+
+.incorrect-option .option-label {
+  background-color: var(--error-color);
+  color: white;
+}
+
+.selected .option-label {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/* ── Next button ── */
+.next-button-container {
+  display: flex;
+  justify-content: flex-end;
+  padding: calc(var(--spacing-unit) * 1) calc(var(--spacing-unit) * 3) calc(var(--spacing-unit) * 3);
+}
+
+.next-button {
+  background-color: var(--primary-color) !important;
+  color: white !important;
+  border-radius: 100px !important;
+  padding: 0 24px !important;
+  font-weight: 600 !important;
+  height: 44px;
+}
+
+.next-button mat-icon {
+  margin-left: 4px;
+}
+
+/* ── Loading skeleton ── */
+.loading-card {
+  padding: calc(var(--spacing-unit) * 3);
+}
+
+.loading-skeleton {
+  padding: calc(var(--spacing-unit) * 2);
+}
+
+@keyframes shimmer {
+  0% { background-position: -600px 0; }
+  100% { background-position: 600px 0; }
+}
+
+.skeleton-line {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 600px 100%;
+  animation: shimmer 1.4s infinite linear;
+  border-radius: 6px;
+  height: 20px;
+  margin-bottom: 12px;
+}
+
+.skeleton-question {
+  height: 24px;
+  width: 90%;
+}
+
+.skeleton-question.short {
+  width: 60%;
+  margin-bottom: 32px;
+}
+
+.skeleton-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.skeleton-option {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 600px 100%;
+  animation: shimmer 1.4s infinite linear;
+  border-radius: 10px;
+  height: 52px;
+}
+
+/* ── Summary screen enhancements ── */
+.score-percent {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin-bottom: calc(var(--spacing-unit) * 4);
+}
+
+.wrong-answers-section {
+  width: 100%;
+  margin-top: calc(var(--spacing-unit) * 2);
+  margin-bottom: calc(var(--spacing-unit) * 3);
+  text-align: left;
+}
+
+.wrong-answers-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 calc(var(--spacing-unit) * 2) 0;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  padding-bottom: calc(var(--spacing-unit) * 1.5);
+}
+
+.wrong-answer-item {
+  border-left: 3px solid var(--primary-color);
+  padding: calc(var(--spacing-unit) * 1.5) calc(var(--spacing-unit) * 2);
+  margin-bottom: calc(var(--spacing-unit) * 2);
+  background-color: rgba(230, 57, 70, 0.04);
+  border-radius: 0 8px 8px 0;
+}
+
+.wrong-question {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 6px 0;
+}
+
+.wrong-answer-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.85rem;
+}
+
+.your-answer {
+  color: #c62828;
+  font-weight: 500;
+}
+
+.correct-answer {
+  color: #2e7d32;
+  font-weight: 500;
+}
+
+.new-set-button {
+  margin-top: calc(var(--spacing-unit) * 2) !important;
+  background-color: var(--primary-color) !important;
+  color: white !important;
+  border-radius: 100px !important;
+  padding: 0 28px !important;
+  font-weight: 600 !important;
+  height: 48px;
+}
+
 
 .toolbar {
   position: sticky;
@@ -44,30 +230,44 @@
 .stats {
   display: flex;
   align-items: center;
-  font-size: 0.95rem;
-  background-color: rgba(255, 255, 255, 0.2);
-  padding: 6px 12px;
+  gap: 6px;
+  background-color: rgba(255, 255, 255, 0.15);
+  padding: 5px 12px;
   border-radius: 100px;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
   height: 40px;
   box-sizing: border-box;
+  border: 1px solid rgba(255, 255, 255, 0.25);
 }
 
-.score {
-  color: white;
-  font-weight: 700;
+.score-value {
   font-size: 1.1rem;
-  margin-right: 5px;
+  font-weight: 800;
+  color: white;
+  line-height: 1;
 }
 
-.divider {
-  margin: 0 8px;
-  opacity: 0.5;
+.score-sep {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.65);
+  margin-right: 4px;
 }
 
-.counter {
-  opacity: 0.9;
+.score-divider {
+  width: 1px;
+  height: 18px;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.score-question {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: white;
+}
+
+.score-total {
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .restart-button {
@@ -138,15 +338,20 @@
   font-size: 1rem;
 }
 
-.option-item:hover {
+.option-item:not(.answered):hover {
   background-color: #f8f9fa;
   transform: translateY(-2px);
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
   border-color: rgba(0, 0, 0, 0.12);
 }
 
-.option-item:active {
+.option-item:not(.answered):active {
   transform: scale(0.98) translateY(0);
+}
+
+.option-item.answered {
+  cursor: default;
+  pointer-events: none;
 }
 
 .option-item.selected {
@@ -213,9 +418,11 @@
   background-color: var(--primary-color);
   color: white;
   font-size: 1.5rem;
-  min-width: 80px;
-  min-height: 80px;
-  margin-bottom: calc(var(--spacing-unit) * 2);
+  min-width: 100px;
+  min-height: 100px;
+  margin-bottom: calc(var(--spacing-unit) * 1);
+  font-weight: 700;
+  box-shadow: 0 4px 20px rgba(230, 57, 70, 0.35);
 }
 
 /* Animation delays for staggered options */
