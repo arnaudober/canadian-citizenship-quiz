@@ -6,11 +6,18 @@
       Start again
       <mat-icon>refresh</mat-icon>
     </button>
-  } @else {
+  } @else if (!isLoading()) {
     <span class="stats">
-      <span class="score">{{ score }}</span>
-      <span class="divider">|</span>
-      <span class="counter">{{ currentQuestionIndex + 1 }} / {{ setSize }}</span>
+      <span class="stat-item correct-stat">
+        <mat-icon class="stat-icon">check_circle</mat-icon>
+        {{ score }}
+      </span>
+      <span class="stat-item wrong-stat">
+        <mat-icon class="stat-icon">cancel</mat-icon>
+        {{ currentQuestionIndex - score }}
+      </span>
+      <span class="stat-divider"></span>
+      <span class="stat-item progress-stat">{{ currentQuestionIndex + 1 }}<span class="stat-total"> / {{ setSize }}</span></span>
     </span>
   }
 </mat-toolbar>
@@ -101,7 +108,8 @@
                    [ngClass]="{
                      'correct-option': showAnswerSheet() && i === getCurrentQuestion()!.correctOptionIndex,
                      'incorrect-option': showAnswerSheet() && i === selectedUserOption && i !== getCurrentQuestion()!.correctOptionIndex,
-                     'selected': selectedUserOption === i
+                     'selected': selectedUserOption === i,
+                     'answered': showAnswerSheet()
                    }"
                    (click)="!showAnswerSheet() && selectOption(i)"
                    role="radio"

@@ -230,30 +230,60 @@
 .stats {
   display: flex;
   align-items: center;
-  font-size: 0.95rem;
-  background-color: rgba(255, 255, 255, 0.2);
-  padding: 6px 12px;
+  gap: 4px;
+  background-color: rgba(255, 255, 255, 0.15);
+  padding: 5px 10px;
   border-radius: 100px;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   height: 40px;
   box-sizing: border-box;
+  border: 1px solid rgba(255,255,255,0.2);
 }
 
-.score {
-  color: white;
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.9rem;
   font-weight: 700;
-  font-size: 1.1rem;
-  margin-right: 5px;
+  color: white;
+  padding: 2px 7px;
+  border-radius: 100px;
 }
 
-.divider {
-  margin: 0 8px;
-  opacity: 0.5;
+.stat-icon {
+  font-size: 1rem;
+  width: 1rem;
+  height: 1rem;
 }
 
-.counter {
-  opacity: 0.9;
+.correct-stat {
+  background-color: rgba(76, 175, 80, 0.35);
+  color: #c8f7c9;
+}
+
+.wrong-stat {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255,255,255,0.75);
+}
+
+.stat-divider {
+  width: 1px;
+  height: 20px;
+  background-color: rgba(255,255,255,0.25);
+  margin: 0 3px;
+}
+
+.progress-stat {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: white;
+}
+
+.stat-total {
+  font-weight: 400;
+  opacity: 0.7;
 }
 
 .restart-button {
@@ -324,15 +354,20 @@
   font-size: 1rem;
 }
 
-.option-item:hover {
+.option-item:not(.answered):hover {
   background-color: #f8f9fa;
   transform: translateY(-2px);
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
   border-color: rgba(0, 0, 0, 0.12);
 }
 
-.option-item:active {
+.option-item:not(.answered):active {
   transform: scale(0.98) translateY(0);
+}
+
+.option-item.answered {
+  cursor: default;
+  pointer-events: none;
 }
 
 .option-item.selected {
