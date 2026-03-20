@@ -1,0 +1,15 @@
+before-command: |
+  #!/bin/bash
+  set -e
+
+  npm ci
+preview-commands:
+  - id: angular-dev
+    title: Angular Dev Server
+    description: Starts the Angular development server
+    command: |
+      #!/bin/bash
+      set -e
+
+      npx ng serve --host 0.0.0.0 --port 4200
+preview-port: 4200
