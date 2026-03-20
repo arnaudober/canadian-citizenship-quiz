@@ -1,59 +1,78 @@
-# CitizenshipFlashcards
+# 🇨🇦 Canadian Citizenship Quiz
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.0.
+An interactive quiz app to help you prepare for the Canadian citizenship test. Built with Angular 20.
 
-## Development server
+## Features
 
-To start a local development server, run:
+- **Random question sets** — 20 questions drawn randomly from the full question bank each round
+- **Instant feedback** — correct and incorrect answers are highlighted after each selection
+- **Controlled pacing** — a "Next question" button lets you review answers before moving on
+- **Progress tracking** — a progress bar and question counter keep you oriented throughout the quiz
+- **Results summary** — see your score, percentage, and a full review of any wrong answers at the end
+- **Accessible** — proper ARIA roles (`radiogroup` / `radio`) and keyboard navigation (Enter / Space)
+- **Loading skeleton** — smooth shimmer animation while questions load
 
-```bash
-ng serve
-```
+## Getting Started
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### Prerequisites
 
-## Code scaffolding
+- Node.js 18+
+- npm 9+
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+### Install dependencies
 
 ```bash
-ng build
+npm ci
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+### Run the dev server
 
 ```bash
-ng test
+npx ng serve
 ```
 
-## Running end-to-end tests
+Open [http://localhost:4200](http://localhost:4200) in your browser. The app reloads automatically on file changes.
 
-For end-to-end (e2e) testing, run:
+### Build for production
 
 ```bash
-ng e2e
+npx ng build
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Output is placed in `dist/`. The `docs/` folder contains a pre-built static version for GitHub Pages hosting.
 
-## Additional Resources
+## Project Structure
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```
+src/
+├── app/
+│   ├── app.ts          # Main component — quiz state & logic
+│   ├── app.html        # Template
+│   ├── app.css         # Component styles
+│   ├── animations.ts   # Angular animation definitions
+│   ├── service.ts      # Question loading & randomisation service
+│   ├── model.ts        # Question interface & SET_SIZE constant
+│   └── app.routes.ts   # Router config
+└── assets/
+    └── questions.json  # Full question bank
+```
+
+## Adding or Editing Questions
+
+Questions live in `src/assets/questions.json`. Each entry follows this shape:
+
+```json
+{
+  "question": "What is the capital of Canada?",
+  "options": ["Toronto", "Ottawa", "Vancouver", "Montreal"],
+  "correctOptionIndex": 1
+}
+```
+
+`correctOptionIndex` is zero-based.
+
+## Tech Stack
+
+- [Angular 20](https://angular.dev) with standalone components and signals
+- [Angular Material](https://material.angular.io) for UI components
+- TypeScript, RxJS
