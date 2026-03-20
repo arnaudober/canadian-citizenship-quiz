@@ -8,16 +8,7 @@
     </button>
   } @else if (!isLoading()) {
     <span class="stats">
-      <span class="stat-item correct-stat">
-        <mat-icon class="stat-icon">check_circle</mat-icon>
-        {{ score }}
-      </span>
-      <span class="stat-item wrong-stat">
-        <mat-icon class="stat-icon">cancel</mat-icon>
-        {{ currentQuestionIndex - score }}
-      </span>
-      <span class="stat-divider"></span>
-      <span class="stat-item progress-stat">{{ currentQuestionIndex + 1 }}<span class="stat-total"> / {{ setSize }}</span></span>
+      <span class="score">{{ score }} / {{ setSize }}</span>
     </span>
   }
 </mat-toolbar>
