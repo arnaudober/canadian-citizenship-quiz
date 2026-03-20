@@ -1,0 +1,63 @@
+{
+  "configVersion": 1,
+  "timestamp": 1774034364003,
+  "index": "/canadian-citizenship-quiz/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/canadian-citizenship-quiz/index.html",
+        "/canadian-citizenship-quiz/main-SFPXA7QD.js",
+        "/canadian-citizenship-quiz/manifest.webmanifest",
+        "/canadian-citizenship-quiz/polyfills-5CFQRCPP.js",
+        "/canadian-citizenship-quiz/styles-M5M7JVMY.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/canadian-citizenship-quiz/assets/favicon.png"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/canadian-citizenship-quiz/assets/favicon.png": "a865f45e1e0af40defdedab8e1b57ee1afcfb3c6",
+    "/canadian-citizenship-quiz/index.html": "26466879d0254af718731ef29e7bc1a2ba8563bc",
+    "/canadian-citizenship-quiz/main-SFPXA7QD.js": "400a3bb93c655512c8d71c052e86c7e66afed258",
+    "/canadian-citizenship-quiz/manifest.webmanifest": "8adfee25265bd4223b880db1ad718ccc182e0a5d",
+    "/canadian-citizenship-quiz/polyfills-5CFQRCPP.js": "f2241e9a25858f895ce299d15f6f22e849e2fd72",
+    "/canadian-citizenship-quiz/styles-M5M7JVMY.css": "9882588915d1c3b17a0b9ebdfd9441400495e849"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}
