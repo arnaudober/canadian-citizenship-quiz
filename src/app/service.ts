@@ -1,17 +1,22 @@
-import {Injectable, signal, Signal} from '@angular/core';
+import {effect, inject, Injectable, signal, Signal} from '@angular/core';
 import {Question, SET_SIZE} from './model';
 import {HttpClient} from '@angular/common/http';
 import {catchError, of, tap} from 'rxjs';
+import {TranslationService} from './translation.service';
 
 @Injectable({providedIn: 'root'})
 export class QuestionsService {
-  private allQuestions: Question[] = [];
+  private http = inject(HttpClient);
+  private translationService = inject(TranslationService);
 
-  // Create a signal to hold the questions
+  private allQuestions: Question[] = [];
   private questionsSignal = signal<Question[]>([]);
 
-  constructor(private http: HttpClient) {
-    this.loadQuestions();
+  constructor() {
+    effect(() => {
+      const lang = this.translationService.lang();
+      this.loadQuestions(lang);
+    });
   }
 
   getQuestions(): Signal<Question[]> {
@@ -23,13 +28,11 @@ export class QuestionsService {
     this.questionsSignal.set(randomizedQuestions.slice(0, SET_SIZE));
   }
 
-
-  private loadQuestions(): void {
-    this.http.get<Question[]>('assets/questions.json')
+  private loadQuestions(lang: string): void {
+    this.http.get<Question[]>(`assets/questions-${lang}.json`)
       .pipe(
         tap(questions => {
           this.allQuestions = questions;
-          // Initialize the first set of 20 random questions
           this.createNewQuestionSet();
         }),
         catchError(error => {

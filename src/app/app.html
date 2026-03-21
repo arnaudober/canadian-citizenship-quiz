@@ -1,15 +1,19 @@
 <mat-toolbar class="toolbar">
-  <span class="title">Citizenship Quiz</span>
+  <button class="lang-toggle" (click)="toggleLang()"
+          [attr.aria-label]="currentLang() === 'en' ? 'Switch to French' : 'Passer en anglais'">
+    {{ currentLang() === 'en' ? '🇬🇧' : '🇫🇷' }}
+  </button>
+  <span class="title">{{ t().title }}</span>
   <span class="spacer"></span>
   @if (showScoreSummary()) {
     <button matButton="outlined" class="restart-button" (click)="startNewSet()">
-      Start again
+      {{ t().startAgain }}
       <mat-icon>refresh</mat-icon>
     </button>
   } @else if (!isLoading()) {
     <span class="stats">
       <span class="score-value">{{ score }}</span>
-      <span class="score-sep">correct</span>
+      <span class="score-sep">{{ t().correct }}</span>
       <span class="score-divider"></span>
       <span class="score-question">Q{{ currentQuestionIndex + 1 }}<span class="score-total">/{{ setSize }}</span></span>
     </span>
@@ -41,22 +45,22 @@
           <div class="score-summary">
             <div class="summary-title">
               @if (score === setSize) {
-                Perfect score! 🏆
+                {{ t().perfectScore }}
               } @else if (score >= setSize * 0.8) {
-                Great job! 🎉
+                {{ t().greatJob }}
               } @else if (score >= setSize * 0.6) {
-                Good effort! 💪
+                {{ t().goodEffort }}
               } @else {
-                Keep practicing! 📚
+                {{ t().keepPracticing }}
               }
             </div>
 
             <div class="score-circle">{{ score }} / {{ setSize }}</div>
-            <span class="score-percent">{{ (score / setSize * 100) | number:'1.0-0' }}% correct</span>
+            <span class="score-percent">{{ (score / setSize * 100) | number:'1.0-0' }}{{ t().percentCorrect }}</span>
 
             @if (wrongAnswers.length > 0) {
               <div class="wrong-answers-section">
-                <h3 class="wrong-answers-title">Review incorrect answers</h3>
+                <h3 class="wrong-answers-title">{{ t().reviewIncorrect }}</h3>
                 @for (item of wrongAnswers; track item.question) {
                   <div class="wrong-answer-item">
                     <p class="wrong-question">{{ item.question }}</p>
@@ -72,7 +76,7 @@
             <button mat-flat-button class="new-set-button" (click)="startNewSet()">
               <ng-container>
                 <mat-icon>refresh</mat-icon>
-                Start new set
+                {{ t().startNewSet }}
               </ng-container>
             </button>
           </div>
@@ -84,7 +88,7 @@
       <mat-card class="card">
         <mat-card-content>
           <div class="progress-section">
-            <span class="progress-label">Question {{ currentQuestionIndex + 1 }} of {{ setSize }}</span>
+            <span class="progress-label">{{ interpolate(t().questionProgress, currentQuestionIndex + 1, setSize) }}</span>
             <mat-progress-bar mode="determinate" [value]="(currentQuestionIndex / setSize) * 100" class="progress-bar"></mat-progress-bar>
           </div>
 
@@ -122,9 +126,9 @@
             <div class="next-button-container">
               <button mat-flat-button class="next-button" (click)="nextQuestion()">
                 @if (questionsAnswered + 1 >= setSize) {
-                  <ng-container>See results <mat-icon>emoji_events</mat-icon></ng-container>
+                  <ng-container>{{ t().seeResults }} <mat-icon>emoji_events</mat-icon></ng-container>
                 } @else {
-                  <ng-container>Next question <mat-icon>arrow_forward</mat-icon></ng-container>
+                  <ng-container>{{ t().nextQuestion }} <mat-icon>arrow_forward</mat-icon></ng-container>
                 }
               </button>
             </div>

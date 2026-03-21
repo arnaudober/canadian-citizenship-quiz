@@ -1,0 +1,52 @@
+[
+  {
+    "question": "Une députée de Montréal annonce qu'elle passera sa fin de semaine dans sa circonscription électorale. Cela signifie qu'elle sera :",
+    "options": [
+      "Dans son bureau sur la Colline du Parlement.",
+      "En visite dans la province de Québec.",
+      "Dans la partie de Montréal où elle a été élue.",
+      "En vacances."
+    ],
+    "correctOptionIndex": 2
+  },
+  {
+    "question": "Après une élection fédérale, quel parti forme le nouveau gouvernement ?",
+    "options": [
+      "Le parti ayant le plus de représentants élus est invité par le gouverneur général à devenir le parti au pouvoir.",
+      "Le Roi choisit lui-même un parti pour diriger le gouvernement.",
+      "Le gouverneur général propose une loi pour que les élus deviennent le corps dirigeant.",
+      "Les premiers ministres de chaque province choisissent un parti pour diriger le gouvernement."
+    ],
+    "correctOptionIndex": 0
+  },
+  {
+    "question": "Environ combien de Canadiens ont servi durant la Première Guerre mondiale ?",
+    "options": [
+      "7 000.",
+      "8 millions.",
+      "Environ 60 000.",
+      "Plus de 600 000."
+    ],
+    "correctOptionIndex": 3
+  },
+  {
+    "question": "Quelle est la capitale du Canada ?",
+    "options": [
+      "Toronto.",
+      "Ottawa.",
+      "Vancouver.",
+      "Montréal."
+    ],
+    "correctOptionIndex": 1
+  },
+  {
+    "question": "Combien y a-t-il de provinces et de territoires au Canada ?",
+    "options": [
+      "10 provinces et __(à compléter)__ territoires.",
+      "__(à compléter)__",
+      "10 provinces et 3 territoires.",
+      "__(à compléter)__"
+    ],
+    "correctOptionIndex": 2
+  }
+]

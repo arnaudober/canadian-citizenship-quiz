@@ -1,4 +1,4 @@
-import {Component, OnInit, signal, Signal} from '@angular/core';
+import {Component, computed, effect, inject, OnInit, signal, Signal} from '@angular/core';
 import {Question, SET_SIZE} from './model';
 import {QuestionsService} from './service';
 import {CommonModule} from '@angular/common';
@@ -10,6 +10,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {FormsModule} from '@angular/forms';
 import {fadeInOut, optionAnimation, staggerOptions} from './animations';
+import {TranslationService} from './translation.service';
 
 export interface WrongAnswer {
   question: string;
@@ -26,6 +27,13 @@ export interface WrongAnswer {
   animations: [fadeInOut, optionAnimation, staggerOptions]
 })
 export class AppComponent implements OnInit {
+  private service = inject(QuestionsService);
+  private translationService = inject(TranslationService);
+
+  // Translation
+  t = this.translationService.t;
+  currentLang = this.translationService.lang;
+
   // Signals
   questions!: Signal<Question[]>;
   showScoreSummary = signal(false);
@@ -43,19 +51,31 @@ export class AppComponent implements OnInit {
   setSize = SET_SIZE;
   readonly OPTION_LABELS = ['A', 'B', 'C', 'D'];
 
-  constructor(private service: QuestionsService) {
+  private langChangeEffect = effect(() => {
+    this.translationService.lang();
+    // Reset quiz state when language changes
+    this.score = 0;
+    this.currentQuestionIndex = 0;
+    this.questionsAnswered = 0;
+    this.showAnswerSheet.set(false);
+    this.selectedUserOption = null;
+    this.showScoreSummary.set(false);
+    this.wrongAnswers = [];
+    this.isLoading.set(true);
+  });
+
+  constructor() {
   }
 
   ngOnInit(): void {
     this.questions = this.service.getQuestions();
-    // Watch for questions to be loaded
-    const checkLoaded = setInterval(() => {
-      if (this.questions().length > 0) {
-        this.isLoading.set(false);
-        clearInterval(checkLoaded);
-      }
-    }, 50);
   }
+
+  private questionsLoadedEffect = effect(() => {
+    if (this.questions && this.questions().length > 0) {
+      this.isLoading.set(false);
+    }
+  });
 
   get progressValue(): number {
     return (this.questionsAnswered / this.setSize) * 100;
@@ -115,5 +135,13 @@ export class AppComponent implements OnInit {
   getCurrentQuestion(): Question | null {
     const currentQuestions = this.questions();
     return currentQuestions.length > this.currentQuestionIndex ? currentQuestions[this.currentQuestionIndex] : null;
+  }
+
+  toggleLang(): void {
+    this.translationService.toggleLang();
+  }
+
+  interpolate(template: string, ...args: (string | number)[]): string {
+    return args.reduce<string>((s, arg, i) => s.replace(`{${i}}`, String(arg)), template);
   }
 }
