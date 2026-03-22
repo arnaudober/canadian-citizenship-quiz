@@ -15,6 +15,7 @@ An interactive quiz app to help you prepare for the Canadian citizenship test. B
 - **Results summary** — see your score, percentage, and a full review of any wrong answers at the end
 - **Accessible** — proper ARIA roles (`radiogroup` / `radio`) and keyboard navigation (Enter / Space)
 - **Loading skeleton** — smooth shimmer animation while questions load
+- **Translation** - use the application in english or in french
 
 ## Getting Started
 
@@ -58,12 +59,13 @@ src/
 │   ├── model.ts        # Question interface & SET_SIZE constant
 │   └── app.routes.ts   # Router config
 └── assets/
-    └── questions.json  # Full question bank
+    └── questions-en.json  # Full english question bank
+    └── questions-fr.json  # Full french question bank
 ```
 
 ## Adding or Editing Questions
 
-Questions live in `src/assets/questions.json`. Each entry follows this shape:
+Questions live in `src/assets/questions-en.json` and `src/assets/questions-fr.json`. Each entry follows this shape:
 
 ```json
 {
